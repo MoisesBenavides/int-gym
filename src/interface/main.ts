@@ -11,7 +11,9 @@ const inpDocument = document.getElementById(
 ) as HTMLInputElement | null;
 const selPlan = document.getElementById("sel-plan") as HTMLSelectElement | null;
 const inpFee = document.getElementById("inp-fee") as HTMLInputElement | null;
-const inpDiscount = document.getElementById("inp-discount") as HTMLInputElement | null;
+const inpDiscount = document.getElementById(
+  "inp-discount",
+) as HTMLInputElement | null;
 const btnAdd = document.getElementById("btn-add") as HTMLButtonElement | null;
 const errorContainer = document.getElementById(
   "error-container",
@@ -44,8 +46,7 @@ function clearInputs(): void {
     inpDocument.value = "";
     inpFee.value = "";
   }
-  if (inpDiscount)
-    inpDiscount.value = "";
+  if (inpDiscount) inpDiscount.value = "";
 }
 
 function showError(message: string): void {
@@ -79,7 +80,13 @@ function createFeeEditor(member: Member): HTMLDivElement {
   button.className = "btn btn-outline-secondary";
   button.textContent = "Guardar cuota";
   button.addEventListener("click", () => {
-    // TODO: editar la cuota del socio con el valor de input
+    try {
+      memberList.updateFee(member.documentId, Number(input.value));
+      updateList();
+      updateTotals();
+    } catch {
+      input.classList.add("is-invalid");
+    }
   });
   group.append(input, button);
   return group;
