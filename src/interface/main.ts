@@ -34,6 +34,9 @@ const inpTotalMembers = document.getElementById(
 const inpTotalFees = document.getElementById(
   "inp-total-fees",
 ) as HTMLInputElement | null;
+const inpTotalDiscounted = document.getElementById(
+  "inp-total-discounted",
+) as HTMLInputElement | null;
 
 function clearInputs(): void {
   if (inpName && inpDocument && inpFee) {
@@ -119,9 +122,10 @@ function updateList(): void {
 }
 
 function updateTotals(): void {
-  if (inpTotalMembers && inpTotalFees) {
+  if (inpTotalMembers && inpTotalFees && inpTotalDiscounted) {
     inpTotalMembers.value = String(memberList.getItems().length);
     inpTotalFees.value = String(memberList.totalFees());
+    inpTotalDiscounted.value = String(memberList.totalDiscounted());
   }
 }
 
