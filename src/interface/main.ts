@@ -11,6 +11,7 @@ const inpDocument = document.getElementById(
 ) as HTMLInputElement | null;
 const selPlan = document.getElementById("sel-plan") as HTMLSelectElement | null;
 const inpFee = document.getElementById("inp-fee") as HTMLInputElement | null;
+const inpDiscount = document.getElementById("inp-discount") as HTMLInputElement | null;
 const btnAdd = document.getElementById("btn-add") as HTMLButtonElement | null;
 const errorContainer = document.getElementById(
   "error-container",
@@ -40,6 +41,8 @@ function clearInputs(): void {
     inpDocument.value = "";
     inpFee.value = "";
   }
+  if (inpDiscount)
+    inpDiscount.value = "";
 }
 
 function showError(message: string): void {
@@ -143,6 +146,7 @@ if (btnAdd && inpName && inpDocument && selPlan && inpFee) {
         plan: selPlan.value as Plan,
         monthlyFee: Number(inpFee.value),
       });
+      member.discount = inpDiscount ? Number(inpDiscount.value) : 0;
       memberList.add(member);
       hideError();
       clearInputs();
