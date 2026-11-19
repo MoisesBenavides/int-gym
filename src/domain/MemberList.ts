@@ -32,7 +32,7 @@ export class MemberList {
 
   totalDiscounted(): number {
     return this.#items.reduce(
-      (total, member) => total + (member.monthlyFee * member.discount) / 100,
+      (total, member) => total + member.monthlyFee * (1 - member.discount / 100),
       0,
     );
   }

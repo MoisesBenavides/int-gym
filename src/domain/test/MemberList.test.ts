@@ -46,8 +46,17 @@ describe("MemberList", () => {
   });
 
   test("total discounted fees", () => {
-    member.discount = 50;
+    member.monthlyFee = 1000;
+    member.discount = 10;
     list.add(member);
-    expect(list.totalDiscounted()).toBe(750);
+    list.add(
+      new Member({
+        name: "Luis Gómez",
+        documentId: "87654321",
+        plan: "basic",
+        monthlyFee: 500,
+      }),
+    );
+    expect(list.totalDiscounted()).toBe(1400);
   });
 });
