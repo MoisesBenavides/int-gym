@@ -25,9 +25,19 @@ describe("MemberList", () => {
     expect(list.getItems()).toEqual([member]);
   });
 
+  test("update fee of a member", () => {
+    list.add(member);
+    list.updateFee(member.documentId, 1000);
+    expect(list.getItems()[0].monthlyFee).toBe(1000);
+  });
+
   test("reject a duplicated document id", () => {
     list.add(member);
     expect(() => list.add(member)).toThrow();
+  });
+
+  test("reject a non registred document id for updating fee", () => {
+    expect(() => list.updateFee("00000001", 2000)).toThrow();
   });
 
   test("total fees", () => {

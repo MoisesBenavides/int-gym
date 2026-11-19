@@ -14,7 +14,12 @@ export class MemberList {
   }
 
   updateFee(_documentId: string, _fee: number): void {
-    // TODO: cambiar la cuota del socio con ese documento
+    // Busca en la lista un miembro con el mismo documento por parametro
+    const member = this.#items.find((m) => m.documentId === _documentId);
+    if (!member) {
+      throw new Error("No existe un socio con ese documento.");
+    }
+    member.monthlyFee = _fee;
   }
 
   getItems(): readonly Member[] {
