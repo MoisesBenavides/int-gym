@@ -30,6 +30,11 @@ describe("Member", () => {
     expect(member.monthlyFee).toBe(1500);
   });
 
+  test("store discount", () => {
+    member.discount = 10;
+    expect(member.discount).toBe(10);
+  });
+
   test("reject an empty name", () => {
     expect(() => (member.name = "   ")).toThrow();
   });
@@ -42,6 +47,14 @@ describe("Member", () => {
     expect(() => (member.monthlyFee = 0)).toThrow();
   });
 
+  test("reject a discount greater than 100", () => {
+    expect(() => (member.discount = 101)).toThrow();
+  });
+
+  test("reject a negative discount", () => {
+    expect(() => (member.discount = -1)).toThrow();
+  });
+
   test("reject an invalid plan", () => {
     expect(() => (member.plan = "gold" as Plan)).toThrow();
   });
@@ -50,9 +63,16 @@ describe("Member", () => {
     expect(() => (member.monthlyFee = Number.NaN)).toThrow();
   });
 
-  test("show the member as text", () => {
+  test("show the member without discount as text", () => {
     expect(member.toString()).toBe(
       "Ana Pérez (doc. 12345678) - Plan Completo - $1500",
+    );
+  });
+
+  test("show the member with discount as text", () => {
+    member.discount = 25;
+    expect(member.toString()).toBe(
+      "Ana Pérez (doc. 12345678) - Plan Completo - $1500 - Descuento: 25%",
     );
   });
 });
