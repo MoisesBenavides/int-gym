@@ -26,7 +26,9 @@ export class MemberList {
   }
 
   totalDiscounted(): number {
-    // TODO: sumar las cuotas de los socios con el descuento aplicado
-    return 0;
+    return this.#items.reduce(
+      (total, member) => total + (member.monthlyFee * member.discount) / 100,
+      0,
+    );
   }
 }

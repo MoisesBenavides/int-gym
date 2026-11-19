@@ -34,4 +34,10 @@ describe("MemberList", () => {
     list.add(member);
     expect(list.totalFees()).toBe(1500);
   });
+
+  test("total discounted fees", () => {
+    member.discount = 50;
+    list.add(member);
+    expect(list.totalDiscounted()).toBe(750);
+  });
 });
